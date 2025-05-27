@@ -9,7 +9,7 @@ A Laravel-based remittance application deployed on Digital Ocean App Platform.
 2. GitHub repository
 3. Digital Ocean Personal Access Token
 
-### Step 1: Push to GitHub
+### Step 1: Push to GitHub!!!
 ```bash
 git init
 git add .
