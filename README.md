@@ -26,29 +26,55 @@ git push -u origin main
 5. Choose the `main` branch
 6. The app will automatically detect the `.do/app.yaml` configuration
 
-### Step 3: Configure Environment Variables
-In the Digital Ocean App Platform dashboard, add these environment variables:
+### Step 3: Configure Environment Variables in Digital Ocean
 
-**Required Secrets:**
-- `APP_KEY`: Generate with `php artisan key:generate` (format: base64:...)
-- `MAIL_HOST`: Your SMTP server
-- `MAIL_USERNAME`: Your email username
-- `MAIL_PASSWORD`: Your email password
+1. **Go to Digital Ocean App Platform Dashboard:**
+   - Navigate to https://cloud.digitalocean.com/apps
+   - Select your ViserRemit app
 
-**Optional (for production):**
-- Payment gateway credentials
-- Third-party API keys
-- Custom configuration values
+2. **Access App Settings:**
+   - Click on your app name
+   - Go to the "Settings" tab
+   - Click on "App-Level Environment Variables"
 
-### Step 4: Database Setup
+3. **Add Required Environment Variables:**
+   Click "Edit" and add these variables:
+
+   **APP_KEY** (Required):
+   - Generate locally: `cd core && php artisan key:generate --show`
+   - Copy the output (format: base64:xxxxx)
+   - In Digital Ocean: Key = `APP_KEY`, Value = the generated key
+   - Mark as "Encrypted" ✓
+
+   **Email Configuration** (Required for notifications):
+   - Key = `MAIL_HOST`, Value = your SMTP server (e.g., smtp.gmail.com)
+   - Key = `MAIL_USERNAME`, Value = your email address
+   - Key = `MAIL_PASSWORD`, Value = your email password/app password
+   - Mark all email variables as "Encrypted" ✓
+
+   **Optional Production Variables:**
+   - Payment gateway API keys
+   - Third-party service credentials
+   - Custom configuration values
+
+### Step 4: Configure GitHub Repository Secrets
+
+1. **Go to Your GitHub Repository:**
+   - Navigate to https://github.com/yourusername/viserremit
+   - Click on "Settings" tab
+   - Click on "Secrets and variables" → "Actions"
+
+2. **Add Digital Ocean Token:**
+   - Click "New repository secret"
+   - Name: `DIGITALOCEAN_ACCESS_TOKEN`
+   - Value: Your Digital Ocean Personal Access Token
+   - Get token from: https://cloud.digitalocean.com/account/api/tokens
+
+### Step 5: Database Setup
 The app will automatically create a MySQL database. After deployment:
-1. Access the database console
+1. Access the database console in Digital Ocean
 2. Import the SQL dump from `install/database.sql`
 3. Or run migrations: `php artisan migrate --seed`
-
-### Step 5: GitHub Actions Setup
-Add this secret to your GitHub repository:
-- `DIGITALOCEAN_ACCESS_TOKEN`: Your Digital Ocean API token
 
 ## Application Structure
 
