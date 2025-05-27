@@ -1,0 +1,69 @@
+# Laravel specific
+core/.env
+core/.env.backup
+core/.phpunit.result.cache
+core/Homestead.json
+core/Homestead.yaml
+core/auth.json
+core/npm-debug.log
+core/yarn-error.log
+core/.fleet
+core/.idea
+core/.vscode
+
+# Dependencies
+core/vendor/
+core/node_modules/
+
+# Compiled assets
+core/public/hot
+core/public/storage
+core/public/build
+core/storage/*.key
+
+# Cache and logs
+core/storage/app/*
+!core/storage/app/.gitignore
+core/storage/framework/cache/*
+!core/storage/framework/cache/.gitignore
+core/storage/framework/sessions/*
+!core/storage/framework/sessions/.gitignore
+core/storage/framework/testing/*
+!core/storage/framework/testing/.gitignore
+core/storage/framework/views/*
+!core/storage/framework/views/.gitignore
+core/storage/logs/*
+!core/storage/logs/.gitignore
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.directory
+
+# Application specific
+assets/images/user/*
+!assets/images/user/.gitignore
+assets/images/gateway/*
+!assets/images/gateway/.gitignore
+assets/images/logo_icon/*
+!assets/images/logo_icon/.gitignore
+
+# Backup files
+*.bak
+*.backup

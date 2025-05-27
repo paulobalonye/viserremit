@@ -1,0 +1,57 @@
+name: Deploy to Digital Ocean App Platform
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, dom, filter, gd, json, zip, bcmath, curl
+        coverage: none
+    
+    - name: Copy .env
+      run: cd core && php -r "file_exists('.env') || copy('.env.example', '.env');"
+    
+    - name: Install Composer dependencies
+      run: cd core && composer install --prefer-dist --no-progress --no-suggest
+    
+    - name: Generate application key
+      run: cd core && php artisan key:generate
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: core/package-lock.json
+    
+    - name: Install NPM dependencies
+      run: cd core && npm ci
+    
+    - name: Build assets
+      run: cd core && npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Digital Ocean App Platform
+      uses: digitalocean/app_action@v1.1.5
+      with:
+        app_name: viserremit
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
