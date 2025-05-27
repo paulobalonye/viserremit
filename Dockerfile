@@ -33,7 +33,7 @@ COPY . .
 RUN cd core && composer install --no-dev --optimize-autoloader
 
 # Install Node dependencies and build assets
-RUN cd core && npm ci && npm run build
+RUN cd core && npm install && npm run build
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \

@@ -10,7 +10,7 @@ services:
     cd core && php artisan serve --host=0.0.0.0 --port=8080
   build_command: |
     cd core && composer install --no-dev --optimize-autoloader
-    cd core && npm ci && npm run build
+    cd core && npm install && npm run build
     cd core && php artisan config:cache
     cd core && php artisan route:cache
     cd core && php artisan view:cache
