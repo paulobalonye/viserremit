@@ -6,13 +6,13 @@ services:
     repo: yourusername/viserremit
     branch: main
     deploy_on_push: true
-  run_command: |
-    php -S 0.0.0.0:8080 -t . index.php
   build_command: |
     cd core && composer install --no-dev --optimize-autoloader
     cd core && php artisan key:generate --force
     cd core && php artisan migrate --force
-  http_port: 8080
+    chmod -R 755 .
+    chmod -R 777 core/storage
+    chmod -R 777 core/bootstrap/cache
   instance_count: 1
   instance_size_slug: basic-xxs
   environment_slug: php
